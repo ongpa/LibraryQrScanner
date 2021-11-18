@@ -1,45 +1,61 @@
 <template>
-  <div v-if="login" id="app">
+  <div v-if="loginStatus" id="app">
     <Topbar></Topbar>
     <router-view />
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/qrcode">About</router-link>
-    </div> -->
     <Navbar></Navbar>
   </div>
   <div v-else id="app">
     <b-container fluid id="login" class="pt-5">
-      <b-card title="Login Siswa" class="shadow-lg" style="margin: 200px 5% 0">
-        <b-form>
-          <b-form-group  label="Username">
-            <b-form-input></b-form-input>
+      <b-card title="Library QR Scanner" class="shadow-lg" style="margin: 200px 5% 0">
+        <b-form @submit.prevent="submit">
+          <b-form-group label="Username">
+            <b-form-input v-model="userId" required></b-form-input>
           </b-form-group>
-          <b-form-group  label="Password">
-            <b-form-input type="password"></b-form-input>
+          <b-form-group label="Password">
+            <b-form-input v-model="password" type="password" required></b-form-input>
           </b-form-group>
-          <b-button variant="primary" @click="login = !login">Login</b-button>
+          <b-button variant="primary" type="submit" >Login</b-button>
         </b-form>
+        <b-alert v-if="wrongCredentials" show variant="danger" class="mt-3">Username atau Password salah!</b-alert>
       </b-card>
     </b-container>
   </div>
 </template>
 
 <script>
-import Topbar from '@/components/Topbar.vue'
-import Navbar from '@/components/Navbar.vue'
+import Topbar from "@/components/Topbar.vue";
+import Navbar from "@/components/Navbar.vue";
+import { mapActions, mapState } from "vuex";
 
 export default {
   data() {
     return {
-      login: false,
+      userId: "",
+      password: "",
+      wrongCredentials: false,
     }
+  },
+  computed: {
+    ...mapState(["loginStatus"]),
+  },
+  methods: {
+    ...mapActions(["LogIn"]),
+    async submit() {
+      const user = new FormData();
+      user.append("userId", this.userId);
+      user.append("password", this.password);
+      this.wrongCredentials = await this.LogIn(user);
+      if (!this.wrongCredentials) {
+        this.$router.push("/");
+      }
+      this.password = "";
+    },
   },
   components: {
     Topbar,
-    Navbar
-  }
-}
+    Navbar,
+  },
+};
 </script>
 
 <style>
