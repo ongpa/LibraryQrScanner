@@ -45,6 +45,7 @@ export default new Vuex.Store({
     async DaftarPinjam({ commit, dispatch }) {
       await axios.get("/daftarpinjam.php").then((response) => {
         if (response.data["login_status"] == "false") {
+          alert("Session anda sudah habis, silahkan login kembali");
           dispatch("LogOut");
         } else {
           commit("setBooks", response.data);

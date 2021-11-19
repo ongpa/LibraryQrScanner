@@ -34,7 +34,7 @@ export default {
         scanned.append("itemCode", codeBuku);
         scanned.append("operation", "s");
         await axios.post("/pinjamBuku.php", scanned).then((response) => {
-          if (response.data["msg"] == "false") {
+          if (response.data["login_status"] == "false") {
             alert("Session anda sudah habis, silahkan login kembali");
             this.LogOut();
           } else if (response.data["msg"]) {
@@ -54,7 +54,12 @@ export default {
         const scanned = new FormData();
         scanned.append("operation", "p");
         await axios.post("/pinjamBuku.php", scanned).then((response) => {
-          alert(response.data["msg"]);
+          if (response.data["login_status"] == "false") {
+            alert("Session anda sudah habis, silahkan login kembali");
+            this.LogOut();
+          } else{
+            alert(response.data["msg"]);
+          }
         })
       } catch (error) {
         alert(error);

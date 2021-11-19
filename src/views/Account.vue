@@ -80,7 +80,12 @@ export default {
         changePassForm.append("newPass", this.newPass);
         changePassForm.append("confPass", this.confPass);
         await axios.post("/gantiPassword.php", changePassForm).then((response) => {
-          this.msg = response.data["msg"];
+          if (response.data["login_status"] == "false") {
+            alert("Session anda sudah habis, silahkan login kembali");
+            this.LogOut;
+          } else {
+            this.msg = response.data["msg"];
+          }
         })
       } catch (error) {
         alert(error);
