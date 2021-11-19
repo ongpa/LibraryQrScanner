@@ -74,6 +74,7 @@ export default {
       this.$refs[modalId].hide();
     },
     async submit() {
+      this.setIsLoading();
       try {
         const changePassForm = new FormData();
         changePassForm.append("oldPass", this.oldPass);
@@ -90,6 +91,7 @@ export default {
       } catch (error) {
         alert(error);
       }
+      this.setIsLoading();
     },
   },
   components: {

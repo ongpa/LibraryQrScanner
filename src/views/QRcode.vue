@@ -16,7 +16,7 @@
 
 <script>
 import axios from "axios";
-import { mapActions } from "vuex";
+import { mapActions, mapMutations } from "vuex";
 
 export default {
   name:"QRcode",
@@ -28,7 +28,9 @@ export default {
   },
   methods: {
     ...mapActions(["LogOut"]),
+    ...mapMutations(["setIsLoading"]),
     async onDecode(codeBuku) {
+      this.setIsLoading();
       try {
         const scanned = new FormData();
         scanned.append("itemCode", codeBuku);
@@ -48,8 +50,10 @@ export default {
       } catch (error) {
         alert(error);
       }
+      this.setIsLoading();
     },
     async pinjam() {
+      this.setIsLoading();
       try {
         const scanned = new FormData();
         scanned.append("operation", "p");
@@ -64,6 +68,7 @@ export default {
       } catch (error) {
         alert(error);
       }
+      this.setIsLoading();
     },
     hideModal() {
       this.codeBuku = null;

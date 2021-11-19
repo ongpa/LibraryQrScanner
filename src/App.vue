@@ -19,6 +19,10 @@
         <b-alert v-if="wrongCredentials" show variant="danger" class="mt-3">Username atau Password salah!</b-alert>
       </b-card>
     </b-container>
+
+    <!-- Loading Component -->
+     <loading :active.sync="isLoading" 
+        :is-full-page="fullPage"></loading>
   </div>
 </template>
 
@@ -26,6 +30,8 @@
 import Topbar from "@/components/Topbar.vue";
 import Navbar from "@/components/Navbar.vue";
 import { mapActions, mapState } from "vuex";
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
   data() {
@@ -36,7 +42,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["loginStatus"]),
+    ...mapState(["loginStatus", "isLoading"]),
   },
   methods: {
     ...mapActions(["LogIn"]),
@@ -54,6 +60,7 @@ export default {
   components: {
     Topbar,
     Navbar,
+    Loading,
   },
 };
 </script>
