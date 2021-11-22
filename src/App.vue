@@ -22,7 +22,7 @@
 
     <!-- Loading Component -->
      <loading :active.sync="isLoading" 
-        :is-full-page="fullPage"></loading>
+        :is-full-page="true"></loading>
   </div>
 </template>
 

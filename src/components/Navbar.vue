@@ -6,7 +6,7 @@
         </router-link>
       </b-navbar-brand>
       <b-navbar-brand class="mx-auto">
-        <router-link to="/qrcode">
+        <router-link to="/scanner">
           <b-icon icon="upc-scan"></b-icon>
         </router-link>
       </b-navbar-brand>
