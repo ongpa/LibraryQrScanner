@@ -4,6 +4,7 @@
       <h3 id="ptitle"><b>QR Code Scanner</b></h3>
       <hr style="border: 1px dashed gray;"/>
       <qrcode-stream @decode="onDecode"></qrcode-stream>
+      <b-alert show variant="warning"><p>Jika mengalami kesulitan, coba lakukan scan barcode tanpa memasukkan bagian huruf ke dalam area scan</p></b-alert>
 
       <b-modal ref="loanModal" hide-footer hide-header centered>
         <h3 class="my-4">Yakin ingin meminjam buku {{ codeBuku }} {{ judulBuku }} ?</h3>

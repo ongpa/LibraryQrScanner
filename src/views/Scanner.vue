@@ -1,15 +1,17 @@
 <template>
-  <div class="Scanner">
+  <div class="scanner">
     <b-container fluid class="pt-4 px-3">
-      <h3 id="ptitle"><b>QR Code Scanner</b></h3>
+      <h3 id="ptitle"><b>Barcode Scanner</b></h3>
       <hr style="border: 1px dashed gray;"/>
       <StreamBarcodeReader
           @decode="onDecode"
+          @loaded="onLoaded"
       ></StreamBarcodeReader>
+      <b-alert show variant="warning"><p>Jika mengalami kesulitan, coba lakukan scan barcode tanpa memasukkan bagian huruf ke dalam area scan</p></b-alert>
 
       <b-modal ref="loanModal" hide-footer hide-header centered>
         <h3 class="my-4">Yakin ingin meminjam buku {{ codeBuku }} {{ judulBuku }} ?</h3>
-        <b-button class="mx-1" variant="primary" @click="pinjam()">Keluar</b-button>
+        <b-button class="mx-1" variant="primary" @click="pinjam()">Pinjam</b-button>
         <b-button class="mx-1" variant="secondary" @click="hideModal()">Batalkan</b-button>
       </b-modal>
     </b-container>
@@ -19,6 +21,7 @@
 <script>
 import axios from "axios";
 import { mapActions, mapMutations } from "vuex";
+import { StreamBarcodeReader } from "vue-barcode-reader";
 
 export default {
   name:"Scanner",
@@ -79,6 +82,7 @@ export default {
     },
   },
   components:{
+    StreamBarcodeReader,
   },
 }
 </script>

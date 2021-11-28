@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 import axios from "axios";
 
 export default {
@@ -63,6 +63,7 @@ export default {
   },
   methods: {
     ...mapActions(["LogOut"]),
+    ...mapMutations(["setIsLoading"]),
     showModal(modalId) {
       this.oldPass = "";
       this.newPass = "";
